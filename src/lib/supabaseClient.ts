@@ -1,37 +1,17 @@
-import type { Database } from "@/lib/dbTypes";
-import { type SupabaseClient, createClient } from "@supabase/supabase-js";
+import type { Database } from "@/lib/dbTypes"
+import { type SupabaseClient, createClient } from "@supabase/supabase-js"
 
-// Fallback constants (useful for local/dev when env vars are not injected)
-// NOTE: Replace with your project values if needed.
-export const SUPABASE_URL_FALLBACK =
-	"https://YOUR_SUPABASE_PROJECT.supabase.co";
-export const SUPABASE_ANON_KEY_FALLBACK = "YOUR_SUPABASE_ANON_KEY";
-
-function getEnv(name: string): string | undefined {
-	// Vite exposes env vars on import.meta.env
-	const env = import.meta.env as Record<string, unknown>;
-	const v = env[name];
-	return typeof v === "string" && v.length > 0 ? v : undefined;
-}
-
-const supabaseUrl =
-	getEnv("VITE_SUPABASE_URL") ??
-	getEnv("SUPABASE_URL") ??
-	SUPABASE_URL_FALLBACK;
-
-const supabaseAnonKey =
-	getEnv("VITE_SUPABASE_ANON_KEY") ??
-	getEnv("SUPABASE_ANON_KEY") ??
-	SUPABASE_ANON_KEY_FALLBACK;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL ?? "https://xniyqipanlelneyigrbn.supabase.co"
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhuaXlxaXBhbmxlbG5leWlncmJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEyMDIzNDYsImV4cCI6MjA4Njc3ODM0Nn0.fd6asVTdohxA8Rc9QlqMURYEpb86DTmNp4PIXBc6_fs"
 
 export const supabase: SupabaseClient<Database> = createClient<Database>(
-	supabaseUrl,
-	supabaseAnonKey,
-	{
-		auth: {
-			persistSession: true,
-			autoRefreshToken: true,
-			detectSessionInUrl: true,
-		},
-	},
-);
+  supabaseUrl,
+  supabaseAnonKey,
+  {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+    },
+  },
+)
